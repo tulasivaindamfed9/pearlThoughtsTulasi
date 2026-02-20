@@ -63,7 +63,8 @@ placeholder="Login with Mobile or Email" />
           </div>
 
           {/* Login Button */}
-          <Button className="w-full rounded-xl bg-cyan-600 hover:bg-cyan-700">
+          {/* onclick navigae to do list page  */}
+          <Button className="w-full rounded-xl bg-cyan-600 hover:bg-cyan-700" onClick={() => window.location.href = '/doctorsList'}>
             Login
           </Button>
 
