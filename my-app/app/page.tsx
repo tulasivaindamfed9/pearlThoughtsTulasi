@@ -1,104 +1,105 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Separator } from "@/components/ui/separator"
-import { FcGoogle } from "react-icons/fc"
-import { FiEye, FiEyeOff } from "react-icons/fi"
-import { useState } from "react"
+import { Card, CardContent } from "@/components/ui/card"
+import { useRouter } from "next/navigation"
 
-import doclogo from "../public/doclogo.png"
+export default function HomePage() {
+  const router = useRouter()
 
-
-
-export default function LoginPage() {
-const [showPassword, setShowPassword] = useState(false)
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <Card className="w-full max-w-sm rounded-2xl shadow-xl bg-gradient-to-br from-emerald-50 to-emerald-300
-">
-        <CardContent className="p-6 space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 flex flex-col">
 
-          {/* Logo */}
-          <div className="flex justify-center">
-            <div className="w-40 h-28 rounded-3xl flex items-center justify-center text-lg font-semibold text-gray-700">
-              <img src={doclogo.src} alt="Logo" className="w-40 h-auto" />
-            </div>
-          </div>
+      {/* Navbar */}
+      <header className="flex justify-between items-center px-8 py-5 bg-white shadow-md">
+        <h1 className="text-2xl font-bold text-blue-700">
+          MediCare+
+        </h1>
 
-          {/* Login Title */}
-          <div>
-            <h2 className="text-2xl font-bold text-emerald-900">Login</h2>
-           
-            <p className="text-center text-sm text-gray-800 pt-4">
-              Mobile / Email
-            </p>
-          </div>
-
-          {/* Input */}
-          <Input className="border border-gray-400 rounded-xl px-3 py-2 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:border-emerald-500 transition-all"
-placeholder="Login with Mobile or Email" />
-          
-
-           <div className="relative w-full">
-          <Input className="border border-gray-400 rounded-xl px-3 py-2 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:border-emerald-500 transition-all"
- placeholder="Enter your password" type={showPassword ? "text" : "password"} onChange={()=>setShowPassword(!showPassword)}/>
-          <span className="absolute right-3 top-3 cursor-pointer">
-            {showPassword ? <FiEyeOff onClick={()=>setShowPassword(false)} /> : <FiEye  onClick={()=>setShowPassword(true)} />}
-          </span>
-          </div>
-          {/* Remember + Forgot */}
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2">
-              <Checkbox id="remember" className="border-gray-400"/>
-              <label htmlFor="remember" className="text-gray-800">
-                Remember Me
-              </label>
-            </div>
-            <button className="text-red-500 hover:underline">
-              Forgot Password
-            </button>
-          </div>
-
-          {/* Login Button */}
-          {/* onclick navigae to do list page  */}
-          <Button className="w-full rounded-xl bg-cyan-600 hover:bg-cyan-700" onClick={() => window.location.href = '/doctorsList'}>
+        <div className="space-x-4">
+          <Button
+            variant="outline"
+            className="border-blue-600 text-blue-600 hover:bg-blue-50"
+            onClick={() => router.push("/login")}
+          >
             Login
           </Button>
 
-          {/* Separator */}
-          <div className="flex items-center gap-2">
-            <Separator className="flex-1" />
-            <span className="text-xs text-muted-foreground">
-              Or login With
-            </span>
-            <Separator className="flex-1" />
+          <Button
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+            onClick={() => router.push("/signup")}
+          >
+            Create Account
+          </Button>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main className="flex flex-1 items-center justify-center px-6">
+        <div className="grid md:grid-cols-2 gap-10 items-center max-w-6xl">
+
+          {/* Left Content */}
+          <div className="space-y-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-blue-900 leading-tight">
+              Book Trusted Doctors <br /> Anytime, Anywhere
+            </h2>
+
+            <p className="text-lg text-blue-800">
+              MediCare+ helps you find experienced doctors,
+              schedule appointments instantly, and manage your
+              medical visits with ease — all in one secure platform.
+            </p>
+
+            <div className="flex gap-4 pt-4">
+              <Button
+                size="lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+                onClick={() => router.push("/signup")}
+              >
+                Get Started
+              </Button>
+
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </Button>
+            </div>
           </div>
 
-          {/* Google Button */}
-          
-          <Button
-  variant="outline"
-  className="w-full rounded-xl flex items-center gap-2"
->
-  <FcGoogle className="w-5 h-5" />
-  Continue with Google
-</Button>
+          {/* Right Card Info */}
+          <Card className="shadow-xl border-blue-200">
+            <CardContent className="p-8 space-y-6">
+              <h3 className="text-2xl font-semibold text-blue-800">
+                Why Choose MediCare+?
+              </h3>
 
+              <ul className="space-y-4 text-blue-700">
+                <li>✔️ Verified and experienced doctors</li>
+                <li>✔️ Instant appointment booking</li>
+                <li>✔️ Secure medical records</li>
+                <li>✔️ 24/7 support assistance</li>
+              </ul>
 
-          {/* Sign Up */}
-          <p className="text-center text-sm text-gray-800 pt-4">
-            Don’t have an account?{" "}
-            <span className="text-cyan-800 cursor-pointer hover:underline">
-              Sign Up
-            </span>
-          </p>
+              <Button
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-4"
+                onClick={() => router.push("/signup")}
+              >
+                Create Free Account
+              </Button>
+            </CardContent>
+          </Card>
 
-        </CardContent>
-      </Card>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="text-center py-6 bg-blue-700 text-white text-sm">
+        © {new Date().getFullYear()} MediCare+. All rights reserved.
+      </footer>
     </div>
   )
 }
-

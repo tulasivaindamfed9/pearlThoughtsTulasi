@@ -18,8 +18,7 @@ export default function SingleDocDetails() {
   const { doctors, loading } = useAppSelector(
     (state) => state.doctors
   )
-console.log(doctors,"doclist from api")
-  // Fetch doctors only if not already loaded
+
   useEffect(() => {
     if (doctors.length === 0) {
       dispatch(fetchDoctors())
@@ -47,122 +46,142 @@ console.log(doctors,"doclist from api")
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center px-4 py-6">
-      <div className="
-  w-full 
-  max-w-sm 
-  sm:max-w-md 
-  md:max-w-2xl 
-  lg:max-w-4xl 
-  h-[90vh] 
-  flex 
-  flex-col 
-  relative
-">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-white pt-24 px-4 mb-10">
+      <div className="max-w-5xl mx-auto">
 
+        {/* Back Button */}
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-2 text-blue-700 mb-6 hover:text-blue-900 transition text-lg font-medium"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Back
+        </button>
 
-        {/* Top Section */}
-        <div className="mb-4">
-          <button
-            onClick={() => router.back()}
-            className="flex items-center gap-2 mb-4"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Book Appointment</span>
-          </button>
-        </div>
+        {/* Doctor Header Card */}
+        <Card className="rounded-3xl shadow-xl border border-blue-100 bg-gradient-to-r from-blue-600 to-blue-500 text-white mb-8">
+          <CardContent className="p-8 flex flex-col md:flex-row gap-8 items-center">
 
-        {/* Doctor Card */}
-        <Card className="w-full py-3 bg-emerald-600 text-dark-100 rounded-xl mb-4">
-          <CardContent className="p-4 flex flex-col gap-4">
+            <Avatar className="h-36 w-36 rounded-3xl border-4 border-white shadow-lg">
+              <AvatarImage src="https://i.pravatar.cc/150?img=12" />
+              <AvatarFallback>DR</AvatarFallback>
+            </Avatar>
 
-            <div className="flex gap-4">
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-3xl font-bold">
+                {doctor.name}
+              </h2>
 
-              <div className="flex-1">
-                <h2 className="font-semibold text-lg">
-                  {doctor.name}
-                </h2>
+              <p className="mt-2 text-lg">
+                {doctor.specialty}
+              </p>
 
-                <p>{doctor.specialty}</p>
+              <p className="mt-2 text-blue-100">
+                {doctor.qualification}
+              </p>
 
-                <p>{doctor.qualification}</p>
+              <p className="text-blue-100">
+                {doctor.fellowship}
+              </p>
 
-                <p>{doctor.fellowship}</p>
-              </div>
-
-              <Avatar className="h-20 w-20">
-                <AvatarImage src="https://i.pravatar.cc/150?img=12" />
-                <AvatarFallback>DR</AvatarFallback>
-              </Avatar>
+              <Badge className="mt-4 bg-white text-blue-600">
+                Available Today
+              </Badge>
             </div>
 
           </CardContent>
         </Card>
-<div className="rounded-2xl shadow-xl bg-gradient-to-br from-emerald-50 to-emerald-300 p-4">
+
         {/* Stats Section */}
-        <div className="grid grid-cols-4 text-center mb-6 gap-1">
-        
-           <Card className="rounded-2xl shadow-xl bg-gradient-to-br from-emerald-50 to-emerald-200 p-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          <Card className="rounded-2xl shadow-md bg-blue-50 border border-blue-100 text-center">
             <CardContent className="p-4">
-              <p className="text-2xl font-bold">{doctor.patients}</p>
-              <p>Patients</p>
+              <p className="text-2xl font-bold text-blue-900">
+                {doctor.patients}
+              </p>
+              <p className="text-md text-blue-700">Patients</p>
             </CardContent>
           </Card>
-          
-          <Card className="rounded-2xl shadow-xl bg-gradient-to-br from-emerald-50 to-emerald-200 p-4">
+
+          <Card className="rounded-2xl shadow-md bg-blue-50 border border-blue-100 text-center">
             <CardContent className="p-4">
-              <p className="text-2xl font-bold">{doctor.experience}</p> 
-                <p>Years Exp.</p>
+              <p className="text-2xl font-bold text-blue-900">
+                {doctor.experience}
+              </p>
+              <p className="text-md text-blue-700">Years Exp.</p>
             </CardContent>
-            </Card>
-            <Card className="rounded-2xl shadow-xl bg-gradient-to-br from-emerald-50 to-emerald-200 p-4">
+          </Card>
+
+          <Card className="rounded-2xl shadow-md bg-blue-50 border border-blue-100 text-center">
             <CardContent className="p-4">
-                <p className="text-2xl font-bold">{doctor.rating}</p>
-                <p>Rating</p>
+              <p className="text-2xl font-bold text-blue-900">
+                {doctor.rating}
+              </p>
+              <p className="text-md text-blue-700">Rating</p>
             </CardContent>
-            </Card>
-            <Card className="rounded-2xl shadow-xl bg-gradient-to-br from-emerald-50 to-emerald-200 p-4">
+          </Card>
+
+          <Card className="rounded-2xl shadow-md bg-blue-50 border border-blue-100 text-center">
             <CardContent className="p-4">
-                <p className="text-2xl font-bold">{doctor.reviews}</p>
-                <p>Reviews</p>
+              <p className="text-2xl font-bold text-blue-900">
+                {doctor.reviews}
+              </p>
+              <p className="text-md text-blue-700">Reviews</p>
             </CardContent>
-            </Card>
+          </Card>
         </div>
 
-        {/* About Doctor */}
-        <div className="mb-6">
-          <h3 className="text-emerald-700 font-semibold">About Doctor</h3>
-          <p>{doctor.description}</p>
-        </div>
+        {/* About Section */}
+        <Card className="rounded-3xl shadow-md bg-blue-50 border border-blue-100 mb-6">
+          <CardContent className="p-6">
+            <h3 className="text-xl font-semibold text-blue-800 mb-3">
+              About Doctor
+            </h3>
+            <p className="text-blue-900 leading-relaxed text-md">
+              {doctor.description}
+            </p>
+          </CardContent>
+        </Card>
 
-        {/* Service & Specialization */}
-        <div className="mb-6">
-          <h3 className="text-emerald-700 font-semibold">Service & Specialization</h3>
+        {/* Service Section */}
+        <Card className="rounded-3xl shadow-md bg-blue-50 border border-blue-100 mb-6">
+          <CardContent className="p-6 space-y-4">
+            <h3 className="text-xl font-semibold text-blue-800">
+              Service & Specialization
+            </h3>
 
-          <div className="flex justify-between">
-            <span >Service</span>
-            <span>{doctor.service}</span>
-          </div>
+            <div className="flex justify-between text-blue-900">
+              <span>Service</span>
+              <span className="font-medium">{doctor.service}</span>
+            </div>
 
-          <div className="flex justify-between">
-            <span>Specialization</span>
-            <span>{doctor.specialty}</span>
-          </div>
-        </div>
+            <div className="flex justify-between text-blue-900">
+              <span>Specialization</span>
+              <span className="font-medium">{doctor.specialty}</span>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Availability */}
-        <div className="mb-6">
-          <h3 className="text-emerald-700 font-semibold">Availability For Consulting</h3>
+        <Card className="rounded-3xl shadow-md bg-blue-50 border border-blue-100 mb-10">
+          <CardContent className="p-6">
+            <h3 className="text-xl font-semibold text-blue-800 mb-3">
+              Availability
+            </h3>
 
-          <div className="flex justify-between">
-            <span>{doctor.availabilityDays}</span>
-            <span>{doctor.availabilityTime}</span>
-          </div>
-        </div>
-</div>
-        {/* Button */}
-        <button className="w-full py-3 bg-emerald-600 text-white rounded-xl">
-          Book appointment
+            <div className="flex justify-between text-blue-900">
+              <span>{doctor.availabilityDays}</span>
+              <span>{doctor.availabilityTime}</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Book Button */}
+        <button
+          onClick={() => router.push(`/book/${doctor.id}`)}
+          className="w-full sm:w-auto px-10 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl shadow-lg hover:scale-105 transition duration-300"
+        >
+          Book Appointment
         </button>
 
       </div>
