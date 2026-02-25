@@ -31,10 +31,16 @@ export default function PatientDetailsPage() {
     }
   }, [dispatch, doctors.length])
 
-  const doctor = doctors.find((doc) => doc.id === doctorId)
+  const doctor = doctors?.find((doc) => doc.id === doctorId)
 
   const handleConfirmBooking = () => {
     setError("")
+
+    // make sure a doctor is selected (TypeScript guard)
+    if (!doctor) {
+      setError("Doctor information not available")
+      return
+    }
 
     if (!name || !age || !phone || !relationship || !reason) {
       setError("All fields are required")
