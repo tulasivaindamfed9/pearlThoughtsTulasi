@@ -4,12 +4,21 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const router = useRouter()
 
+  const pathname = usePathname()
+  const linkStyle = (path: string) =>
+  `px-4 py-2 rounded-xl transition ${
+    pathname === path
+      ? "bg-blue-600 text-white"
+      : "text-blue-900 hover:bg-blue-100"
+  }`
+  
   useEffect(() => {
     const checkLoginStatus = () => {
       const user = localStorage.getItem("currentUser")
@@ -80,16 +89,25 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8 text-lg font-medium">
 
-            <Link href="/" className="text-blue-900 hover:text-blue-600">
+            {/* <Link href="/" className="text-blue-900 hover:text-blue-600">
               Home
-            </Link>
+            </Link> */}
 
             {isLoggedIn && (
               <Link
                 href="/doctorsList"
-                className="text-blue-900 hover:text-blue-600"
+                className={linkStyle("/doctorsList")}
               >
                 Doctors
+              </Link>
+            )}
+
+            {isLoggedIn && (
+              <Link
+                href="/book/user"
+                className={linkStyle("/book/user")}
+              >
+                My Appointments
               </Link>
             )}
 
@@ -112,7 +130,7 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={handleSignOut}
-                className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 shadow-md transition"
+                className={linkStyle("/signout")}
               >
                 Sign Out
               </button>

@@ -42,62 +42,36 @@ export default function BookAppointmentPage() {
   ]
 
   const handleBooking = () => {
-    setError("")
-    setSuccess("")
+  setError("")
 
-    if (!selectedDate) {
-      setError("Please select a date")
-      return
-    }
-
-    if (!selectedSlot) {
-      setError("Please select a time slot")
-      return
-    }
-
-    const currentUser = localStorage.getItem("currentUser")
-    if (!currentUser) {
-      setError("Please login first")
-      return
-    }
-
-    const user = JSON.parse(currentUser)
-
-    const existingBookings =
-      JSON.parse(localStorage.getItem("appointments") || "[]")
-
-    const alreadyBooked = existingBookings.find(
-      (b: any) =>
-        b.doctorId === doctorId &&
-        b.date === selectedDate &&
-        b.slot === selectedSlot
-    )
-
-    if (alreadyBooked) {
-      setError("This slot is already booked. Please choose another.")
-      return
-    }
-
-    const newBooking = {
-      id: Date.now(),
-      doctorId,
-      doctorName: doctor?.name,
-      userId: user.id,
-      date: selectedDate,
-      slot: selectedSlot,
-    }
-
-    localStorage.setItem(
-      "appointments",
-      JSON.stringify([...existingBookings, newBooking])
-    )
-
-    setSuccess("Appointment booked successfully 🎉")
-
-    setTimeout(() => {
-      router.push("/book/user")
-    }, 1500)
+  if (!selectedDate) {
+    setError("Please select a date")
+    return
   }
+
+  if (!selectedSlot) {
+    setError("Please select a time slot")
+    return
+  }
+
+  const currentUser = localStorage.getItem("currentUser")
+  if (!currentUser) {
+    setError("Please login first")
+    return
+  }
+
+  // Store temporary booking data
+  localStorage.setItem(
+    "tempBooking",
+    JSON.stringify({
+      doctorId,
+      selectedDate,
+      selectedSlot,
+    })
+  )
+
+  router.push(`/book/patient/${doctorId}`)
+}
 
   if (!doctor) {
     return (
@@ -194,7 +168,7 @@ export default function BookAppointmentPage() {
               onClick={handleBooking}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl"
             >
-              Book Now
+              Proceed
             </Button>
 
           </CardContent>
